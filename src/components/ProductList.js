@@ -19,6 +19,8 @@ function ProductList(props) {
 
 	useEffect(() => {
 		setCartItems(cart);
+		
+		
 	});
 	const increaseQuantity = (dishInCart) => {
 		const x = cart.findIndex((item) => item.id === dishInCart.id);
@@ -31,7 +33,7 @@ function ProductList(props) {
 		const newCart = [...oldCart, oldDish];
 		console.log({ newCart });
 		setCart(newCart);
-		console.log(dishInCart.addedItemQuantity);
+		// console.log(dishInCart.addedItemQuantity);
 	};
 	const decreaseQuantity = (dishInCart) => {
 		if (dishInCart.addedItemQuantity > 1) {
@@ -50,15 +52,24 @@ function ProductList(props) {
 		console.log(dishInCart.addedItemQuantity);
 	};
 	const addAddons = (dishInCart, event) => {
-		const a = dishInCart.addons.includes(event.target.value);
-		if (a) {
-			if (!dishInCart.addedAddons.includes(event.target.value)) {
-				console.log(event.target.value);
-				console.log(dishInCart.addedAddons);
-				dishInCart.addedAddons.push(event.target.value);
-				console.log(dishInCart.addedAddons.includes(dishInCart.addons));
-				//  console.log(!dishInCart.addons.includes(dishInCart.addedAddons))
-			}
+		
+		if (!dishInCart.addedAddons.includes(event.target.value)) {
+			console.log(event.target.value);
+			console.log(dishInCart.addedAddons);
+			const x = cart.findIndex((item) => item.id === dishInCart.id);
+			console.log(x);
+			console.log(cart[x]);
+			const oldDish = {
+				...cart[x],
+				addedAddons: cart[x].addedAddons.push(event.target.value)
+			};
+			// dishInCart.addedAddons.push(event.target.value);
+			// console.log(dishInCart.addedAddons);
+			console.log(oldDish);
+			const addNew = cart.filter((cartItem) => cartItem.id !== dishInCart.id);
+			const newCart = [...addNew , cart[x]];
+			setCart(newCart);	
+			
 		}
 	};
 
@@ -107,9 +118,10 @@ function ProductList(props) {
 									</td>
                   -----------
 									{dish.addons.map((item) => {
+										// console.log(item);
 										return (
 											<td  key={item.id}>
-												<button
+												<button disabled={dish.addedAddons.includes(item)? true:false}
 													value={item}
 													onClick={(Event) => addAddons(dishInCart, Event)}
 												>
