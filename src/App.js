@@ -95,19 +95,7 @@ function App() {
 			price: 20,
 		},
 	];
-
-	//   const addAddons = (dishInCart,event)=>{
-  
-     
-	//     if(!dishInCart.addedAddons.includes(event.target.value)){
-	//         console.log(event.target.value)
-	//        console.log(dishInCart.addedAddons)
-	//      setDishes({ addedAddons: dishInCart.addedAddons.push(event.target.value)
-	//     })
-
-	//     }
- 
-	//  }
+	
 	const navigateTo = (PAGE_CART) => {
 		setPage(PAGE_CART);
 	};
